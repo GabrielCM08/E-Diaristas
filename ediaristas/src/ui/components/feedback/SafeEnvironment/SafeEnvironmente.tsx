@@ -1,15 +1,13 @@
-import React from 'react';
-import { SafeEnvironmentContainer } from './SafeEnvironment.style';
-import { Container } from '@mui/material';
+import React from "react";
+import { SafeEnvironmentContainer } from "./SafeEnvironment.style";
+import { Container } from "@mui/material";
 
 const SafeEnvironment = () => {
-    return (
+  return (
     <SafeEnvironmentContainer>
-        <Container>
-        Ambiente Seguro
-        </Container>
+      <Container>Ambiente Seguro</Container>
     </SafeEnvironmentContainer>
-    );
+  );
 };
 
 export default SafeEnvironment;
