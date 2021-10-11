@@ -19,6 +19,13 @@ const Home: NextPage = () => {
         rating={3}
         description={"Rio Grande do Sul"}
       />
+
+      <UserInformation
+        name={"Najulinha"}
+        picture={""}
+        rating={5}
+        description={"Rio Grande do Sul"}
+      />
     </div>
   );
 };
