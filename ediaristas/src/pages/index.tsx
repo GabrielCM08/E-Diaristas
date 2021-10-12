@@ -2,6 +2,14 @@ import type { NextPage } from "next";
 import SafeEnvironment from "ui/components/feedback/SafeEnvironment/SafeEnvironmente";
 import PageTitle from "ui/components/data-display/PageTitle/PageTitle";
 import UserInformation from "ui/components/data-display/UserInformation/UserInformation";
+import TextFieldMask from "ui/components/Inputs/TextFieldMask/TextFieldMask";
+import { Button, Typography, Container } from "@mui/material";
+import { typography } from "@mui/system";
+import {
+  FormElementsContainer,
+  ProfissionaisPaper,
+  ProfissionaiContainer,
+} from "ui/styles/pages/index.style";
 
 const Home: NextPage = () => {
   return (
@@ -13,19 +21,57 @@ const Home: NextPage = () => {
           "Preencha seu endereço e veja todos os profissionais da sua localidade"
         }
       />
-      <UserInformation
-        name={"Gabriel"}
-        picture={"https://github.com/GabrielCM08.png/"}
-        rating={3}
-        description={"Rio Grande do Sul"}
-      />
 
-      <UserInformation
-        name={"Najulinha"}
-        picture={""}
-        rating={5}
-        description={"Rio Grande do Sul"}
-      />
+      <Container>
+        <FormElementsContainer>
+          <TextFieldMask
+            mask={"99.999-999"}
+            label={"Digite seu CEP"}
+            fullWidth
+            variant={"outlined"}
+          />
+          <Typography color={"error"}>CEP inválido</Typography>
+          <Button
+            variant={"contained"}
+            color={"secondary"}
+            sx={{ width: "220px" }}
+          >
+            Buscar
+          </Button>
+        </FormElementsContainer>
+
+        <ProfissionaisPaper>
+          <ProfissionaiContainer>
+            <UserInformation
+              name={"Gabriel"}
+              picture={"https://github.com/GabrielCM08.png/"}
+              rating={3}
+              description={"Rio Grande do Sul"}
+            />
+
+            <UserInformation
+              name={"Najulinha"}
+              picture={""}
+              rating={5}
+              description={"Rio Grande do Sul"}
+            />
+
+            <UserInformation
+              name={"Najulinha"}
+              picture={""}
+              rating={5}
+              description={"Rio Grande do Sul"}
+            />
+
+            <UserInformation
+              name={"Gabriel"}
+              picture={"https://github.com/GabrielCM08.png/"}
+              rating={3}
+              description={"Rio Grande do Sul"}
+            />
+          </ProfissionaiContainer>
+        </ProfissionaisPaper>
+      </Container>
     </div>
   );
 };
