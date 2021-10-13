@@ -3,15 +3,27 @@ import SafeEnvironment from "ui/components/feedback/SafeEnvironment/SafeEnvironm
 import PageTitle from "ui/components/data-display/PageTitle/PageTitle";
 import UserInformation from "ui/components/data-display/UserInformation/UserInformation";
 import TextFieldMask from "ui/components/Inputs/TextFieldMask/TextFieldMask";
-import { Button, Typography, Container } from "@mui/material";
-import { typography } from "@mui/system";
+import { Button, Typography, Container, CircularProgress } from "@mui/material";
 import {
   FormElementsContainer,
   ProfissionaisPaper,
   ProfissionaiContainer,
 } from "ui/styles/pages/index.style";
+import useIndex from "Data/hooks/pages/useIndex.page";
 
 const Home: NextPage = () => {
+  const {
+    cep,
+    setCep,
+    cepValido,
+    buscarProfissionais,
+    erro,
+    diaristas,
+    buscaFeita,
+    carregando,
+    diaristasRestantes,
+  } = useIndex();
+
   return (
     <div>
       <SafeEnvironment />
@@ -21,7 +33,6 @@ const Home: NextPage = () => {
           "Preencha seu endereço e veja todos os profissionais da sua localidade"
         }
       />
-
       <Container>
         <FormElementsContainer>
           <TextFieldMask
@@ -29,48 +40,78 @@ const Home: NextPage = () => {
             label={"Digite seu CEP"}
             fullWidth
             variant={"outlined"}
+            value={cep}
+            onChange={(event) => setCep(event.target.value)}
           />
-          <Typography color={"error"}>CEP inválido</Typography>
+
+          {erro && <Typography color={"error"}>{erro}</Typography>}
+
           <Button
             variant={"contained"}
             color={"secondary"}
             sx={{ width: "220px" }}
+            disabled={!cepValido || carregando}
+            onClick={() => buscarProfissionais(cep)}
           >
-            Buscar
+            {carregando ? <CircularProgress size={20} /> : "Buscar"}
           </Button>
         </FormElementsContainer>
 
-        <ProfissionaisPaper>
-          <ProfissionaiContainer>
-            <UserInformation
-              name={"Gabriel"}
-              picture={"https://github.com/GabrielCM08.png/"}
-              rating={3}
-              description={"Rio Grande do Sul"}
-            />
+        {buscaFeita &&
+          (diaristas.length > 0 ? (
+            <ProfissionaisPaper>
+              <ProfissionaiContainer>
+                <UserInformation
+                  name={"Gabriel"}
+                  picture={"https://github.com/GabrielCM08.png/"}
+                  rating={3}
+                  description={"Rio Grande do Sul"}
+                />
 
-            <UserInformation
-              name={"Najulinha"}
-              picture={""}
-              rating={5}
-              description={"Rio Grande do Sul"}
-            />
+                <UserInformation
+                  name={"Najulinha"}
+                  picture={""}
+                  rating={5}
+                  description={"Rio Grande do Sul"}
+                />
+                {diaristas.map((item, index) => {
+                  return (
+                    <UserInformation
+                      key={index}
+                      name={item.nome_completo}
+                      picture={item.foto_usuario}
+                      rating={item.reputacao}
+                      description={item.cidade}
+                    />
+                  );
+                })}
+              </ProfissionaiContainer>
 
-            <UserInformation
-              name={"Najulinha"}
-              picture={""}
-              rating={5}
-              description={"Rio Grande do Sul"}
-            />
+              <Container sx={{ textAlign: "center" }}>
+                {diaristasRestantes > 0 && (
+                  <Typography sx={{ mt: 5 }}>
+                    ... e mais {diaristasRestantes}{" "}
+                    {diaristasRestantes > 1
+                      ? "profissioais  atendem"
+                      : "profiossional atende"}{" "}
+                    ao seu endereço
+                  </Typography>
+                )}
 
-            <UserInformation
-              name={"Gabriel"}
-              picture={"https://github.com/GabrielCM08.png/"}
-              rating={3}
-              description={"Rio Grande do Sul"}
-            />
-          </ProfissionaiContainer>
-        </ProfissionaisPaper>
+                <Button
+                  variant={"contained"}
+                  color={"secondary"}
+                  sx={{ mt: 5 }}
+                >
+                  Contratar um profissional
+                </Button>
+              </Container>
+            </ProfissionaisPaper>
+          ) : (
+            <Typography align={"center"} color={"textPrimary"}>
+              Ainda não temos nenhuma diarista disponível em sua região
+            </Typography>
+          ))}
       </Container>
     </div>
   );
