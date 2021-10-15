@@ -16,6 +16,10 @@ Projeto criação de app aplicando conhecimento de estudos
 
 ![image](https://user-images.githubusercontent.com/75757398/137051365-99e630c8-8590-40b7-8238-c1921e3a9992.png)
 
+### Usando API
+
+![image](https://user-images.githubusercontent.com/75757398/137544849-ff43a6cd-4093-421a-8d3b-e0c5a4f10ae0.png)
+
 
 ### Ambiente um pouco menor
 
